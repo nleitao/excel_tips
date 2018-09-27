@@ -1,0 +1,43 @@
+Prep some examples
+xxx Interacting with files structure, getting folder names, getting file names, modified dates etc.
+xxx Mass editing of files/templates
+xxx KPI dashboards Scrap rate (importing data from different files)
+xxx KPI dashboards linked to files that still don't exist
+xxx Welding Solver
+xxx Dinamic Charts (Choose)
+xxx Interacting with HTML/JS
+xxx Excel to email when save
+xxx Excel to PPT
+
+=SUMPRODUCT((sold_sales<planned_sales)*1)
+Contar as planned sales que foram maiores que as sold sales
+
+=SUMPRODUCT((sold_sales<planned_sales)*(items="Apples")*1)
+Contar as planned sales que foram maiores que as sold sales, So do produto "Apples"
+
+=SUMPRODUCT((sold_sales<planned_sales)*(items="Apples")*1,sold_sales)
+Planned sales que foram maiores que as sold sales, So do produto "Apples", e somar essas sold sales
+
+=INDEX(B21:D29,MATCH("Apples",items,0),3)
+No primeiro array, procurar na coluna "items" o producto "apples", e devolve a terceira coluna desse array
+
+=OFFSET(Sheet1!$H$1,1,0,COUNTA(Sheet1!$H:$H)-1,1)
+Dinamic named range, aumenta o range a medida que acrescento mais um elemento
+comecando em H1, nessa celula
+height: faco um CountA dessa coluna menos um (para nao apanhar o titulo)
+manter o width em 1
+
+
+######################################
+    ActiveWindow.ActivateNext
+    ActiveSheet.Next.Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Copy
+    ActiveWindow.ActivateNext
+    ActiveSheet.Paste
+    Selection.End(xlDown).Select
+    Selection.End(xlToLeft).Select
+    Selection.Offset(1, 0).Select        'cell down'
+
+######################################

@@ -1,0 +1,60 @@
+
+Sub Importar_XLS()
+
+Dim sPath As String, sName As String, fName As String
+Dim r As Long, rTemp As Long
+Dim shPadrao As Worksheet
+
+'Para a macro executar mais rápido!
+With Application
+    .ScreenUpdating = False
+    .DisplayAlerts = False
+End With
+
+'A planilha onde serão colados os dados
+Set shPadrao = Sheets("Sheet1")
+
+'O caminho onde as planilhas que serão lidas estão
+sPath = "X:\Series Planning\DC Tooling Investigation\Chassis 2\"
+
+'Descubro o nome do primeiro arquivo a ser aberto
+sName = Dir(sPath & "*.*")
+
+'Faço o loop que le todos os arquivos
+Do While sName <> ""
+    
+    'Acha a ultima linha utilizada na planilha onde serao colados os dados
+    r = shPadrao.Cells(Rows.Count, "A").End(xlUp).Row
+    
+    'O caminho + o nome do arquivo a ser aberto
+    fName = sPath & sName
+    
+    'Abro o workbook a ser lido
+    Workbooks.Open Filename:=fName, UpdateLinks:=False
+    
+    'Descubro sua quantas linhas ele possui
+    rTemp = ActiveWorkbook.ActiveSheet.Cells(Rows.Count, "A").End(xlUp).Row
+    
+    'Colo na planilha principal
+    ActiveWorkbook.ActiveSheet.Range("A1:S" & rTemp).Copy shPadrao.Range("A" & r + 1)
+    
+    'Fecho o arquivo já lido
+    ActiveWorkbook.Close SaveChanges:=False
+    
+ScapeB:
+    
+    'Atualizo a variavel com funcao DIR() que acha o proximo arquivo não processado
+    sName = Dir()
+    
+Loop
+
+On Error GoTo 0
+
+With Application
+    .ScreenUpdating = True
+    .DisplayAlerts = True
+End With
+
+End Sub
+
+
